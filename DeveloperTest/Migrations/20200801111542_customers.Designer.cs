@@ -4,14 +4,16 @@ using DeveloperTest.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DeveloperTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200801111542_customers")]
+    partial class customers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,7 @@ namespace DeveloperTest.Migrations
                         {
                             CustomerId = 1,
                             CustomerName = "Ram Natarajan",
-                            CustomerType = "Large"
+                            CustomerType = "large"
                         });
                 });
 
@@ -52,9 +54,6 @@ namespace DeveloperTest.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Engineer")
                         .HasColumnType("nvarchar(max)");
 
@@ -63,27 +62,15 @@ namespace DeveloperTest.Migrations
 
                     b.HasKey("JobId");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("Jobs");
 
                     b.HasData(
                         new
                         {
                             JobId = 1,
-                            CustomerId = 0,
                             Engineer = "Test",
-                            When = new DateTime(2020, 8, 1, 14, 48, 32, 12, DateTimeKind.Local).AddTicks(200)
+                            When = new DateTime(2020, 8, 1, 12, 15, 42, 207, DateTimeKind.Local).AddTicks(8338)
                         });
-                });
-
-            modelBuilder.Entity("DeveloperTest.Database.Models.Job", b =>
-                {
-                    b.HasOne("DeveloperTest.Database.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
